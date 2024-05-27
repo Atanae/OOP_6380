@@ -1,7 +1,7 @@
-package Family_tree.main;
+package ru.gb.family_tree.main;
 
-import Family_tree.model.*;
-import Family_tree.util.FileManager;
+import ru.gb.family_tree.model.*;
+import ru.gb.family_tree.util.FileManager;
 
 import java.time.LocalDate;
 

@@ -1,4 +1,4 @@
-package Family_tree.util;
+package ru.gb.family_tree.util;
 import java.io.*;
 
 public class FileManager {

@@ -1,4 +1,4 @@
-package Family_tree.model;
+package ru.gb.family_tree.model;
 
 public enum Gender {
     Male, Female

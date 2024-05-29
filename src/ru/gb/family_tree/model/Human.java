@@ -7,7 +7,7 @@ import java.time.Period;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Human implements Serializable {
+public class Human implements Serializable, FamilyTreeElement {
     private long id;
     private String name, lastName;
     private LocalDate dob, dod, doc;
@@ -190,5 +190,15 @@ public class Human implements Serializable {
         if (mother != null) list.add(mother);
 
         return list;
+    }
+
+    @Override
+    public void addChild(FamilyTreeElement child) {
+
+    }
+
+    @Override
+    public void addParents(FamilyTreeElement parent) {
+
     }
 }

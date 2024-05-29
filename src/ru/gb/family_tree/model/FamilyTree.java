@@ -6,59 +6,61 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
-public class FamilyTree implements Serializable, Iterable<Human> {
-    private long idHuman;
-    private final List<Human> humanList;
+//import static jdk.javadoc.internal.doclets.toolkit.util.DocPath.parent;
 
-    public FamilyTree(List<Human> humanList) {
-        this.humanList = humanList;
+public class FamilyTree<E extends FamilyTreeElement> implements Serializable, Iterable<E> {
+    private long idElement;
+    private final List<E> elementList;
+
+    public FamilyTree(List<E> elementList) {
+        this.elementList = elementList;
     }
 
     public FamilyTree() {
         this(new ArrayList<>());
     }
 
-    public boolean add(Human human) {
-        if (human == null) return false;
-        if (!humanList.contains(human)) {
-            humanList.add(human);
-            human.setId((idHuman++));
+    public boolean add(E element) {
+        if (element == null) return false;
+        if (!elementList.contains(element)) {
+            elementList.add(element);
+            element.setId((idElement++));
 
-            addToParents(human);
-            addToChildren(human);
+            addToParents(element);
+            addToChildren(element);
 
             return true;
         }
         return false;
     }
 
-    private void addToChildren(Human human) {
-        for (Human child : human.getChildren()) {
-            child.addParents(human);
+    private void addToChildren(E element) {
+        for (FamilyTreeElement child : element.getChildren()) {
+            child.addParents(element);
         }
     }
 
-    private void addToParents(Human human) {
-        for (Human parent : human.getParents()) {
-            parent.addChild(human);
+    private void addToParents(E element) {
+        for (FamilyTreeElement parent : element.getParents()) {
+            parent.addChild(element);
         }
     }
 
-    public List<Human> findByName(String name) {
-        List<Human> res = new ArrayList<>();
-        for (Human human : humanList) {
-            if (human.getName().equals(name)) {
-                res.add(human);
+    public List<E> findByName(String name) {
+        List<E> res = new ArrayList<>();
+        for (E element : elementList) {
+            if (element.getName().equals(name)) {
+                res.add(element);
             }
         }
         return res;
     }
 
-    public List<Human> findByLastName(String lastName) {
-        List<Human> res = new ArrayList<>();
-        for (Human human : humanList) {
-            if (human.getLastName().equals(lastName)) {
-                res.add(human);
+    public List<E> findByLastName(String lastName) {
+        List<E> res = new ArrayList<>();
+        for (E element : elementList) {
+            if (element.getLastName().equals(lastName)) {
+                res.add(element);
             }
         }
         return res;
@@ -72,26 +74,26 @@ public class FamilyTree implements Serializable, Iterable<Human> {
     private String getInfo() {
         StringBuilder sb = new StringBuilder();
         sb.append("В нашей семье ");
-        sb.append(idHuman);
+        sb.append(idElement);
         sb.append(" членов: \n");
-        for (Human human : humanList) {
-            sb.append(human);
+        for (E element : elementList) {
+            sb.append(element);
             sb.append("\n");
         }
         return sb.toString();
     }
 
     @Override
-    public Iterator<Human> iterator() {
-        return humanList.iterator();
+    public Iterator<E> iterator() {
+        return elementList.iterator();
     }
 
     public void sortByName() {
-        Collections.sort(humanList, (h1, h2) -> h1.getName().compareTo(h2.getName()));
+        Collections.sort(elementList, (h1, h2) -> h1.getName().compareTo(h2.getName()));
     }
 
     public void sortByBirthDate() {
-        Collections.sort(humanList, (h1, h2) -> h1.getDob().compareTo(h2.getDob()));
+        Collections.sort(elementList, (h1, h2) -> h1.getDob().compareTo(h2.getDob()));
     }
 }
 

@@ -7,7 +7,7 @@ import java.time.LocalDate;
 
 public class Main {
     public static void main(String[] args) {
-        FamilyTree tree = testTree();
+        FamilyTree<Human> tree = testTree();
         System.out.println(tree);
 
         // Сортировка по имени
@@ -24,15 +24,15 @@ public class Main {
         FileManager.writeToFile("family_tree.txt", tree);
 
         // Чтение дерева из файла
-        FamilyTree loadedTree = (FamilyTree) FileManager.readFromFile("family_tree.txt");
+        FamilyTree<Human> loadedTree = (FamilyTree<Human>) FileManager.readFromFile("family_tree.txt");
         if (loadedTree != null) {
             System.out.println("\nДрево успешно загружено из файла:");
             System.out.println(loadedTree);
         }
     }
 
-    private static FamilyTree testTree() {
-        FamilyTree tree = new FamilyTree();
+    private static FamilyTree<Human> testTree() {
+        FamilyTree<Human> tree = new FamilyTree<>();
 
         Human sveta = new Human("Светлана", "Поджидаева", LocalDate.of(1937, 2, 13), Gender.Female);
         Human evgeny = new Human("Евгений", "Поджидаев", LocalDate.of(1936, 1, 12), Gender.Male);

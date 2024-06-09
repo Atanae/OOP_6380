@@ -32,21 +32,8 @@ public abstract class VendingMachine {
         return null;
     }
 
-
-
-//    public Product getProduct(String name) {
-//
-//        for (Product product : products) {
-//            if (product.getName().equals(name)) {
-//                products.remove(product);
-//                return product;
-//            }
-//        }
-//
-//        throw new RuntimeException("No such product: " + name);
-//    }
-
-    public List<Product> getProducts() {
+     public abstract Product getProduct(String name, float volume, int temperature);
+     public List<Product> getProducts() {
         return products;
     }
 }

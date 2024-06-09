@@ -18,4 +18,9 @@ public class WaterVendingMachine extends VendingMachine {
     public void addProducts(List<Product> products) {
         this.products.addAll(products);
     }
+
+    @Override
+    public Product getProduct(String name, float volume, int temperature) {
+        return null;
+    }
 }

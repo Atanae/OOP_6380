@@ -47,4 +47,5 @@ public class BottleOfWater extends Product {
                 ", isSpark=" + isSpark +
                 '}';
     }
+
 }

@@ -2,11 +2,12 @@ package less1.practice;
 
 import java.time.LocalDate;
 
-public class Product {
+public abstract class Product {
 
     protected String name;
     protected double price;
     protected LocalDate releaseDate;
+
 
     public Product(String name, double price, LocalDate releaseDate) {
         this.name = name;
@@ -38,4 +39,6 @@ public class Product {
                 ", releaseDate=" + releaseDate +
                 '}';
     }
+
+
 }

@@ -13,9 +13,9 @@ public class StudentGroup {
         return students;
     }
 
-    public void addStudent(Student student){
-        students.add(student);
-    }
+//    public void addStudent(Student student){
+//        students.add(student);
+//    }
 
     @Override
     public String toString() {

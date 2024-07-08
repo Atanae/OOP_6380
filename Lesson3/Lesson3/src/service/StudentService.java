@@ -1,12 +1,25 @@
 package service;
 
-import model.Student;
+import model.DB.DataBase;
+import model.impl.Student;
 
 import java.time.LocalDate;
 
-public class StudentService {
+public class StudentService extends BaseService<Student> {
+    public StudentService() {
+        super(DataBase.studentsDB);
+    }
 
-    public Student createStudent(String firstName, String lastName, LocalDate birthDate, int id) {
-        return new Student(firstName, lastName, birthDate, id);
+    @Override
+    protected int getUserId(Student user) {
+        return user.getId();
+    }
+
+    @Override
+    public Student createUser(String firstName, String lastName, LocalDate birthDate, int groupId) {
+        int id = usersDB.size() + 1;
+        Student student = new Student(id, firstName, lastName, birthDate, groupId);
+        usersDB.add(student);
+        return student;
     }
 }

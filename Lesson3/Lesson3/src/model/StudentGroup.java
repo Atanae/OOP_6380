@@ -1,29 +1,33 @@
 package model;
 
-import model.Student;
+import model.impl.Student;
+import model.impl.Teacher;
 
-import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 public class StudentGroup {
-    public List<Student> students = new ArrayList<>();
+    private List<Student> students;
+    private Teacher teacher;
+
+    public StudentGroup(Teacher teacher, List<Student> students) {
+        this.students = students;
+        this.teacher = teacher;
+    }
 
     public List<Student> getStudents() {
         return students;
     }
 
-//    public void addStudent(Student student){
-//        students.add(student);
-//    }
+    public Teacher getTeacher() {
+        return teacher;
+    }
 
     @Override
     public String toString() {
-        return "Группа студентов: \n" +
-                students;
+        return "УчебнаяГруппа: " +
+                teacher +
+                students +
+                '\n';
     }
 
-    public Iterator<Student> iterator() {
-        return new StudentGroupIterator(students);
-    }
 }

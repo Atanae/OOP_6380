@@ -1,39 +1,65 @@
 package controller;
-
-import model.Stream;
 import model.StudentGroup;
-import service.StreamService;
+import model.impl.Student;
+import model.impl.Teacher;
+import service.BaseService;
 import service.StudentGroupService;
+import service.StudentService;
+import service.TeacherService;
 
-import java.util.ArrayList;
+import java.time.LocalDate;
 import java.util.List;
 
 public class Controller {
-    private StudentGroupService studentGroupService;
-    private StreamService streamService;
 
-    public Controller(StudentGroupService studentGroupService, StreamService streamService) {
-        this.studentGroupService = studentGroupService;
-        this.streamService = streamService;
+    private final StudentService studentService = new StudentService();
+    private final TeacherService teacherService = new TeacherService();
+    private final StudentGroupService studentGroupService = new StudentGroupService();
+
+    public Student createStudent(String firstName, String lastName, LocalDate birthDate, int groupId) {
+        return studentService.createUser(firstName, lastName, birthDate, groupId);
     }
 
-    public Controller(StudentGroupService studentGroupService) {
-        this.studentGroupService = studentGroupService;
+    public Student getStudentById(int id) {
+        try {
+            return studentService.getUserById(id);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return null;
+        }
     }
 
-    public void removeStudent(StudentGroup studentGroup, String name) {
-        studentGroupService.removeStudentByName(studentGroup, name);
+    public List<Student> getAllStudents() {
+        return studentService.getAllUsers();
     }
 
-    public void sortStudentsById(StudentGroup studentGroup) {
-        studentGroupService.sortStudentsById(studentGroup);
+    public Teacher createTeacher(String firstName, String lastName, LocalDate birthDate, int groupId) {
+        return teacherService.createUser(firstName, lastName, birthDate, groupId);
     }
 
-    public void sortStudentsByLastName(StudentGroup studentGroup) {
-        studentGroupService.sortStudentsByLastName(studentGroup);
+    public Teacher getTeacherById(int id) {
+        try {
+            return teacherService.getUserById(id);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return null;
+        }
     }
 
-    public void sortStreamsBySize(List<Stream> streams) {
-        streamService.sortStreamsBySize(streams);
+    public List<Teacher> getAllTeachers() {
+        return teacherService.getAllUsers();
+    }
+
+    public StudentGroup createStudentGroup(StudentGroup studentGroup) {
+        return studentGroupService.createStudentGroup(studentGroup.getTeacher(), studentGroup.getStudents());
+    }
+
+    public StudentGroup getStudentGroupByTeacherId(int teacherId) {
+        try {
+            return studentGroupService.getStudentGroupByTeacherId(teacherId);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return null;
+        }
     }
 }

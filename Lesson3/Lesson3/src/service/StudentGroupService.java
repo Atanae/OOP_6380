@@ -1,29 +1,26 @@
 package service;
 
-import model.Student;
+import model.DB.DataBase;
 import model.StudentGroup;
+import model.impl.Student;
+import model.impl.Teacher;
 
-import java.util.Collections;
-import java.util.Comparator;
+import java.util.List;
 
 public class StudentGroupService {
-
-    private StudentGroup studentGroup;
-
-    public void addStudent(Student student){
-        studentGroup.students.add(student);
+    public StudentGroup createStudentGroup(Teacher teacher, List<Student> students) {
+        return new StudentGroup(teacher, students);
     }
 
-    public void removeStudentByName(StudentGroup studentGroup, String name) {
-        studentGroup.getStudents().removeIf(student -> student.getFirstName().equals(name));
-    }
+    public StudentGroup getStudentGroupByTeacherId(int teacherId) throws Exception {
+        Teacher teacher = DataBase.teachersDB.stream()
+                .filter(t -> t.getId() == teacherId)
+                .findFirst().orElseThrow(() -> new Exception("Учитель не найден"));
 
-    public void sortStudentsById(StudentGroup studentGroup) {
-        Collections.sort(studentGroup.getStudents(), Comparator.comparingInt(Student::getId));
-    }
+        List<Student> students = DataBase.studentsDB.stream()
+                .filter(s -> s.getGroupId() == teacher.getGroups().get(0))
+                .toList();
 
-    public void sortStudentsByLastName(StudentGroup studentGroup) {
-        Collections.sort(studentGroup.getStudents(), Comparator.comparing(Student::getLastName));
+        return new StudentGroup(teacher, students);
     }
-
 }
